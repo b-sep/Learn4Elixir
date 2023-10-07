@@ -532,7 +532,7 @@ Porém, o exemplo abaixo resulta em erro.
 [cabeca | cauda] = []
 ```
 
-Isso acontece porque não existe nenhum valor para ser associado à variável `cabeca`, pois `cabeça`, nesse contexto, representa o primeiro elemento da lista.
+Isso acontece porque não existe nenhum valor para ser associado à variável `cabeca`, pois `cabeca`, nesse contexto, representa o primeiro elemento da lista.
 
 No casamento de padrões, você pode usar o operador '_', que alguns chamam de "coringa", para ignorar algo.
 
@@ -1012,7 +1012,7 @@ mentor_atualizado = %{mentor | idade: mentor.idade + 1}
 ```
 
 ```elixir
-# Criando outra variavel com um valor de nossa estrutura
+# Criando outra variável com um valor de nossa estrutura
 outro_mentor = %Pessoa{nome: "Douglas Tofoli", cidade: "São Paulo"}
 
 # Atualizando vários campos
@@ -1073,7 +1073,7 @@ que calculasse a média aritmética de salários de cada região a partir do inp
 
 ---
 
-Defina variáveis para cada salário, depois, atributa o cálculo de média aritmética à variável média. Por fim, rode a última célula com `if` para garantir que a resposta está certa.
+Defina variáveis para cada salário, depois, atribua o cálculo de média aritmética à variável média. Por fim, rode a última célula com `if` para garantir que a resposta está certa.
 
 ```elixir
 ocamilodev = 71255.53
@@ -1195,28 +1195,28 @@ Com esses dados use **casamento de padrões** (pattern matching) para:
 primeiro
 ```
 
-1. Salvar o nome do segundo comentário em uma variável `titulo`.
+2. Salvar o nome do segundo comentário em uma variável `titulo`.
 
 ```elixir
 [_, segundo, _, _, _, _] = resposta_completa
 titulo = segundo["name"]
 ```
 
-1. Extrair o comentário de **id** `11` do produto de **productId** `3` e criar um novo mapa que contêm todos os valores desse item porém mudando o `email` para `contato@foobar.br`.
+3. Extrair o comentário de **id** `11` do produto de **productId** `3` e criar um novo mapa que contêm todos os valores desse item porém mudando o `email` para `contato@foobar.br`.
 
 ```elixir
 [_, _, _, _, quinto, _] = resposta_completa
 novo = %{quinto | "email" => "contato@foobar.br"}
 ```
 
-1. Extrair o **body** do terceiro comentário.
+4. Extrair o **body** do terceiro comentário.
 
 ```elixir
 [_, _, terceiro | resto] = resposta_completa
 body = terceiro["body"]
 ```
 
-1. Criar uma nova lista removendo o segundo item.
+5. Criar uma nova lista removendo o segundo item.
 
 ```elixir
 [primeiro, _ | resto] = resposta_completa
@@ -1258,7 +1258,7 @@ defmodule Planet do
 end
 ```
 
-1. Crie uma variavel `mercurio` com as informações deste planeta em uma instância da estrutura que você criou.
+2. Crie uma variavel `mercurio` com as informações deste planeta em uma instância da estrutura que você criou.
 
 ```elixir
 mercurio = %Planet{
@@ -1271,7 +1271,7 @@ mercurio = %Planet{
 }
 ```
 
-1. Crie uma variavel `venus` com as informações deste planeta em uma instância da estrutura que você criou.
+3. Crie uma variavel `venus` com as informações deste planeta em uma instância da estrutura que você criou.
 
 ```elixir
 venus = %Planet{
@@ -1284,7 +1284,7 @@ venus = %Planet{
 }
 ```
 
-1. Crie uma variavel `terra` com as informações deste planeta em uma instância da estrutura que você criou.
+4. Crie uma variavel `terra` com as informações deste planeta em uma instância da estrutura que você criou.
 
 ```elixir
 terra = %Planet{
@@ -1297,7 +1297,7 @@ terra = %Planet{
 }
 ```
 
-1. Crie uma variavel `marte` com as informações deste planeta em uma instância da estrutura que você criou.
+5. Crie uma variavel `marte` com as informações deste planeta em uma instância da estrutura que você criou.
 
 ```elixir
 marte = %Planet{
@@ -1310,7 +1310,7 @@ marte = %Planet{
 }
 ```
 
-1. Crie uma variavel `jupiter` com as informações deste planeta em uma instância da estrutura que você criou.
+6. Crie uma variavel `jupiter` com as informações deste planeta em uma instância da estrutura que você criou.
 
 ```elixir
 jupiter = %Planet{
@@ -1323,7 +1323,7 @@ jupiter = %Planet{
 }
 ```
 
-1. Crie uma variavel `saturno` com as informações deste planeta em uma instância da estrutura que você criou.
+7. Crie uma variavel `saturno` com as informações deste planeta em uma instância da estrutura que você criou.
 
 ```elixir
 saturno = %Planet{
@@ -1336,7 +1336,7 @@ saturno = %Planet{
 }
 ```
 
-1. Crie uma variavel `urano` com as informações deste planeta em uma instância da estrutura que você criou.
+8. Crie uma variavel `urano` com as informações deste planeta em uma instância da estrutura que você criou.
 
 ```elixir
 urano = %Planet{
@@ -1349,7 +1349,7 @@ urano = %Planet{
 }
 ```
 
-1. Crie uma variavel `netuno` com as informações deste planeta em uma instância da estrutura que você criou.
+9. Crie uma variavel `netuno` com as informações deste planeta em uma instância da estrutura que você criou.
 
 ```elixir
 netuno = %Planet{
@@ -1362,7 +1362,7 @@ netuno = %Planet{
 }
 ```
 
-1. Crie um mapa para representar o sistema solar, ela deve ter as chaves:
+10. Crie um mapa para representar o sistema solar, ela deve ter as chaves:
 
 * **:estrela**: String, valor "Sol"
 * **:nome**: String, valor "Sistema Solar"
