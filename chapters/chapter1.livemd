@@ -1263,9 +1263,9 @@ end
 ```elixir
 mercurio = %Planet{
   nome: "Mercurio",
-  superficie: "7,48×10^7",
-  volume: "6,083×10^10",
-  massa: "3,3011×10^23",
+  superficie: 7.48e7,
+  volume: 6.083e10,
+  massa: 3.3011e23,
   temperatura_media: 166.85,
   distancia_do_sol: 57_910_000
 }
@@ -1276,9 +1276,9 @@ mercurio = %Planet{
 ```elixir
 venus = %Planet{
   nome: "Vênus",
-  superficie: "4,60×10^8",
-  volume: "92,843×10^10",
-  massa: "4,8685×10^24",
+  superficie: 4.60e8,
+  volume: 92.843e10,
+  massa: 4.8685e24,
   temperatura_media: 461,
   distancia_do_sol: 108_200_000
 }
@@ -1289,9 +1289,9 @@ venus = %Planet{
 ```elixir
 terra = %Planet{
   nome: "Terra",
-  superficie: "5,10×10^8",
-  volume: "1,08321×10^12",
-  massa: "4,8685×10^24",
+  superficie: 5.10e8,
+  volume: 1.08321e12,
+  massa: 5.9736e24,
   temperatura_media: 14,
   distancia_do_sol: 149_600_000
 }
@@ -1302,9 +1302,9 @@ terra = %Planet{
 ```elixir
 marte = %Planet{
   nome: "Marte",
-  superficie: "1,44×10^8",
-  volume: "1,6318×10^11",
-  massa: "6,4174×10^23",
+  superficie: 1.44e8,
+  volume: 1.6318e11,
+  massa: 6.4174e23,
   temperatura_media: -63,
   distancia_do_sol: 227_940_000
 }
@@ -1315,9 +1315,9 @@ marte = %Planet{
 ```elixir
 jupiter = %Planet{
   nome: "Jupiter",
-  superficie: "6,21796×10^10",
-  volume: "1,43128×10^15",
-  massa: "1,8986×10^27",
+  superficie: 6.21796e10,
+  volume: 1.43128e15,
+  massa: 1.8986e27,
   temperatura_media: -108,
   distancia_do_sol: 778_330_000
 }
@@ -1328,9 +1328,9 @@ jupiter = %Planet{
 ```elixir
 saturno = %Planet{
   nome: "Saturno",
-  superficie: "4,27×10^10",
-  volume: "8,2713×10^14",
-  massa: "5,6846×10^26",
+  superficie: 4.27e10,
+  volume: 8.2713e14,
+  massa: 5.6846e26,
   temperatura_media: -139,
   distancia_do_sol: 1_429_400_000
 }
@@ -1341,9 +1341,9 @@ saturno = %Planet{
 ```elixir
 urano = %Planet{
   nome: "Urano",
-  superficie: "8,1156×10^9",
-  volume: "6,833×10^13",
-  massa: "8,6810×10^25",
+  superficie: 8.1156e9,
+  volume: 6.833e13,
+  massa: 8.6810e25,
   temperatura_media: -220,
   distancia_do_sol: 2_870_990_000
 }
@@ -1354,9 +1354,9 @@ urano = %Planet{
 ```elixir
 netuno = %Planet{
   nome: "Netuno",
-  superficie: "7,6183×10^9",
-  volume: "6,254×10^13",
-  massa: "1,0243×10^26",
+  superficie: 7.6183e9,
+  volume: 6.833e13,
+  massa: 8.6810e25,
   temperatura_media: -223,
   distancia_do_sol: 4_504_000_000
 }
