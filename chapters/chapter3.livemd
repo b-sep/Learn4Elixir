@@ -193,7 +193,7 @@ A última cláusula com true é opcional, mas é uma boa prática incluí-la par
 Aqui está um exemplo de uso do cond no Livebook:
 
 ```elixir
-x = 5
+x = true
 
 cond do
   is_number(x) and x == 0 ->
@@ -381,10 +381,37 @@ Para completar esta tarefa, você precisará usar estruturas condicionais, como 
 
 ```elixir
 defmodule ElixGames.Encontro do
-  def determina_encontro(localizacao, probabilidade) do
-    # Implemente a lógica de determinação do resultado do encontro aqui
+  def determina_encontro(localizacao, probabilidade) when is_number(probabilidade) do
+    cond do
+      localizacao == "Bosque Encantado" and probabilidade > 0 and probabilidade <= 90 ->
+        "Criatura amigável"
+
+      localizacao == "Bosque Encantado" and probabilidade > 90 and probabilidade <= 100 ->
+        "Criatura hostil"
+
+      localizacao == "Caverna Escura" and probabilidade > 0 and probabilidade <= 60 ->
+        "Criatura amigável"
+
+      localizacao == "Caverna Escura" and probabilidade > 60 and probabilidade <= 100 ->
+        "Criatura hostil"
+
+      localizacao == "Torre Misteriosa" and probabilidade > 0 and probabilidade <= 30 ->
+        "Criatura amigável"
+
+      localizacao == "Torre Misteriosa" and probabilidade > 30 and probabilidade <= 100 ->
+        "Criatura hostil"
+
+      true ->
+        nil
+    end
   end
 end
+```
+
+```elixir
+IO.inspect(ElixGames.Encontro.determina_encontro("Bosque Encantado", 100))
+IO.inspect(ElixGames.Encontro.determina_encontro("Caverna Escura", 50))
+IO.inspect(ElixGames.Encontro.determina_encontro("Torre Misteriosa", 50))
 ```
 
 ### Exercício 2
@@ -413,37 +440,69 @@ A seguir está um exemplo de como as informações dos clientes estão atualment
 1. Crie uma função chamada `parsear_clientes/1` que receba a string de informações de clientes e a divida em uma lista de informações de clientes formatadas. Use o sigil `~s` para fazer isso.
 
 ```elixir
-def parsear_clientes(informacao) do
-  # A fazer
+defmodule Parser do
+  def parsear_clientes(informacao) do
+    String.split(informacao, ";")
+    |> Enum.map(fn cliente ->
+      [nome, idade, email, telefone] = String.split(cliente, ",")
+
+      [
+        String.replace(nome, "\"", ""),
+        String.to_integer(idade),
+        email,
+        telefone
+      ]
+    end)
+  end
 end
 ```
 
 ```elixir
+string =
+  ~s("Fulano Tal",30,fulano@email.com,+5511995236587;"Ciclano Outro",25,ciclano@email.com,5545996578452)
 
+Parser.parsear_clientes(string)
 ```
 
 1. Crie outra função chamada `extrair_nomes/1` que receba a lista de informações de clientes e retorne uma lista com os nomes dos clientes.
 
 ```elixir
-def extrair_nomes(clientes) do
-  # A fazer
+defmodule ParserName do
+  def extrair_nomes(clientes) do
+    for cliente <- clientes, do: hd(cliente)
+  end
 end
 ```
 
 ```elixir
 # Caso a entrada fosse o exemplo na descrição deve imprimir ["Fulano Tal", "Ciclano Outro"]
+string =
+  ~s(Fulano Tal,30,fulano@email.com,+5511995236587;Ciclano Outro,25,ciclano@email.com,5545996578452)
+
+lista_clientes = Parser.parsear_clientes(string)
+
+ParserName.extrair_nomes(lista_clientes)
 ```
 
 1. Crie uma terceira função chamada `filtrar_clientes_por_idade/2` que receba a lista de informações de clientes e uma idade mínima e retorne uma lista com as informações dos clientes que têm pelo menos a idade especificada.
 
 ```elixir
-def filtrar_clientes_por_idade(clientes, idade_minima) do
-  # A fazer
+defmodule ParserPorIdade do
+  def filtrar_clientes_por_idade(clientes, idade_minima) do
+    Enum.filter(clientes, fn [_, idade, _, _] -> idade >= idade_minima end)
+  end
 end
 ```
 
 ```elixir
 # Deveria imprimir [["Fulano Tal", 30, "fulano@email.com", "+5511995236587"]]
+
+string =
+  ~s(Fulano Tal,30,fulano@email.com,+5511995236587;Ciclano Outro,25,ciclano@email.com,5545996578452)
+
+lista_clientes = Parser.parsear_clientes(string)
+
+ParserPorIdade.filtrar_clientes_por_idade(lista_clientes, 30)
 ```
 
 ### Exercicio 3
@@ -477,6 +536,65 @@ calcula_total(produtos, cliente) # deve retornar 243.00
 
 ```elixir
 defmodule Ecommerce do
-  # A fazer
+  def calcula_total_por_compra_individual(produtos, cliente) do
+    Enum.map(produtos, fn %{preco: preco, quantidade: qtd} ->
+      preco = preco * qtd
+
+      aplica_desconto_preco(preco)
+      |> aplica_desconto_cliente(cliente)
+      |> aplica_desconto_cupom(cliente)
+    end)
+    |> Enum.sum()
+  end
+
+  def calcula_total_por_compra(produtos, cliente) do
+    Enum.reduce(produtos, 0, fn %{quantidade: qtd, preco: preco}, acc ->
+      qtd * preco + acc
+    end)
+    |> aplica_desconto_preco
+    |> aplica_desconto_cliente(cliente)
+    |> aplica_desconto_cupom(cliente)
+  end
+
+  defp aplica_desconto_preco(preco) do
+    cond do
+      preco > 200 and preco <= 500 -> preco * 0.9
+      preco > 500 and preco <= 1000 -> preco * 0.85
+      preco > 1000 -> preco * 0.8
+      true -> preco
+    end
+  end
+
+  defp aplica_desconto_cliente(preco, cliente) do
+    %{membro_clube: membro_clube} = cliente
+
+    if membro_clube do
+      preco * 0.95
+    end
+  end
+
+  defp aplica_desconto_cupom(preco, cliente) do
+    %{cupom: cupom} = cliente
+
+    if cupom == "UBL10" do
+      preco * 0.9
+    end
+  end
 end
+```
+
+```elixir
+produtos = [
+  %{nome: "Ração para gatos", preco: 50.00, quantidade: 2},
+  %{nome: "Brinquedo para cachorro", preco: 30.00, quantidade: 1},
+  %{nome: "Aquário", preco: 200.00, quantidade: 1}
+]
+
+cliente = %{
+  membro_clube: true,
+  cupom: "UBL10"
+}
+
+IO.puts(Ecommerce.calcula_total_por_compra_individual(produtos, cliente))
+IO.puts(Ecommerce.calcula_total_por_compra(produtos, cliente))
 ```
