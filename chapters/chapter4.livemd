@@ -263,7 +263,34 @@ Vamos criar um sistema simples para rastrear o número de acessos a uma página 
 Escreva sua solução na célula abaixo. Se necessário, crie mais células.
 
 ```elixir
-"Coloque aqui sua solução"
+defmodule Acesso do
+  def inicia do
+    {_, agent} = Agent.start(fn -> [] end)
+    agent
+  end
+
+  def registrar_acesso(agente) do
+    {_, current_date} = DateTime.now("Etc/UTC")
+    [date, hour] = String.split(~s"#{current_date}")
+
+    Agent.update(agente, fn state -> [{date, hour} | state] end)
+  end
+
+  def obter_acessos(agente) do
+    agente |> Agent.get(fn state -> state end)
+  end
+end
+```
+
+```elixir
+agente = Acesso.inicia()
+
+Acesso.registrar_acesso(agente)
+Acesso.registrar_acesso(agente)
+Acesso.registrar_acesso(agente)
+Acesso.registrar_acesso(agente)
+
+Acesso.obter_acessos(agente)
 ```
 
 ## Exercício 2
@@ -285,7 +312,32 @@ Considere o caso em que a data de nascimento fornecida está no futuro em relaç
 Este exercício permitirá que você pratique a manipulação de datas em Elixir, incluindo o cálculo de anos bissextos, a diferença entre datas e a formatação dos resultados.
 
 ```elixir
-def calcular_idade(data_aniversario) do
-  # Escreva aqui a sua solução
+defmodule Idade do
+  def calcular_idade(data_aniversario)
+      when is_tuple(data_aniversario) and tuple_size(data_aniversario) == 3 do
+    {_, data_atual} = DateTime.now("Etc/UTC")
+    {ano, mes, dia} = data_aniversario
+    {ano_atual, mes_atual, dia_atual} = {data_atual.year, data_atual.month, data_atual.day}
+
+    cond do
+      {ano, mes, dia} > {ano_atual, mes_atual, dia_atual} ->
+        "A data informada está no futuro"
+
+      {mes, dia} == {mes_atual, dia_atual} ->
+        "Hoje você completa #{ano_atual - ano} anos, parabéns!"
+
+      {mes, dia} != {mes_atual, dia_atual} ->
+        "#{ano_atual - ano} anos"
+
+      true ->
+        nil
+    end
+  end
 end
+```
+
+```elixir
+IO.puts(Idade.calcular_idade({2001, 5, 7}))
+IO.puts(Idade.calcular_idade({2001, 10, 28}))
+IO.puts(Idade.calcular_idade({2202, 10, 28}))
 ```
